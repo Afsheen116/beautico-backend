@@ -7,6 +7,7 @@ const authRoutes = require("./routes/auth.routes");
 const { protect } = require("./middlewares/auth.middleware");
 const productRoutes = require("./routes/product.routes");
 const wishlistRoutes = require("./routes/wishlist.routes");
+const orderRoutes = require("./routes/order.routes");
 
 const app = express(); // ✅ app is created HERE
 
@@ -24,6 +25,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/wishlist", wishlistRoutes);
 app.use("/api/v1/cart", cartRoutes);
+app.use("/api/v1/orders", orderRoutes);
 // --------------------
 // TEMP PROTECTED TEST ROUTE (AFTER app exists)
 // --------------------

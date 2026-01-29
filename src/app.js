@@ -2,23 +2,24 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 
+const authRoutes = require("./routes/auth.routes");
+
 const app = express();
 
 // --------------------
 // Global Middlewares
 // --------------------
-
-// Security headers
 app.use(helmet());
-
-// Enable CORS
 app.use(cors());
-
-// Parse incoming JSON
 app.use(express.json());
 
 // --------------------
-// Health Check Route
+// Routes
+// --------------------
+app.use("/api/v1/auth", authRoutes);
+
+// --------------------
+// Health Check
 // --------------------
 app.get("/api/v1/health", (req, res) => {
   res.status(200).json({
@@ -28,3 +29,4 @@ app.get("/api/v1/health", (req, res) => {
 });
 
 module.exports = app;
+

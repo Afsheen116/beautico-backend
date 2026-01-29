@@ -4,12 +4,16 @@ const {
   getAllProducts,
 } = require("../controllers/product.controller");
 
+const { protect } = require("../middlewares/auth.middleware");
+const { adminOnly } = require("../middlewares/admin.middleware");
+
 const router = express.Router();
 
-// PUBLIC
+// Public
 router.get("/", getAllProducts);
 
-// ADMIN (we’ll protect later)
-router.post("/", createProduct);
+// Admin only
+router.post("/", protect, adminOnly, createProduct);
 
 module.exports = router;
+

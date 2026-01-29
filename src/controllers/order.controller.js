@@ -96,3 +96,33 @@ exports.getMyOrders = async (req, res) => {
     });
   }
 };
+exports.updateOrderStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const orderId = req.params.id;
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order not found",
+      });
+    }
+
+    order.status = status;
+    await order.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Order status updated successfully",
+      order,
+    });
+  } catch (error) {
+    console.error("Update order status error:", error.message);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update order status",
+    });
+  }
+};
